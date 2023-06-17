@@ -1,7 +1,6 @@
 import sqlite3
 import traceback
 import hashlib
-import os
 import subprocess
 
 from flask import Flask
@@ -69,7 +68,7 @@ def main():
         traceback.print_exc()
         etablissements = ['Erreur: Etablissements non disponibles']
 
-    return render_template('accueil.html', title='Accueil',
+    return render_template('accueil.html', title='Délicieux restaurants',
                            etablissements=etablissements)
 
 
@@ -119,18 +118,17 @@ def update_contrevenants():
     # Validation des char à échapper (sauf `)
     black_list = ["'", "\"", ";", "*", "?", "&", "|", "$", "(", ")"]
     hacker_msg = ("Tu pensais vraiment que j'allais te laisser un accès direct "
-                  "à mon shell?\nJ'ai fait INF600C, je sais qu'il faut "
-                  "toujours échapper les caractères dangeureux ;)\n")
+                  "à mon shell?\nJ'ai bloqué l'accès à tous les caractères dangeureux ;)\n")
     for char in black_list:
         if char in updated_name:
             return hacker_msg
 
     # Commande shell
-    file_name = '../todo_list.txt'
+    file_name = 'PRIVATE_FILES/todo_list.txt'
     str = 'Remplacer ' + previous_name + ' par ' + updated_name + '\n'
     command = 'echo "' + str +'" > ' + file_name
     try:
-        subprocess.run(command, shell = True)
+        subprocess.check_output(command, shell = True)
     except subprocess.CalledProcessError:
         return "Laisse moi tranquille s'il te plait...", 200
 

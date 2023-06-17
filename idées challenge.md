@@ -19,9 +19,3 @@ Le XSS qui semble possible lors de la modification d'un nom de client pourrait �
 - À la racine du serveur on fichier qui s'appelle 'credentials' qui permet de trouver les credentials pour accéder à la route /api/flag. Cette route retourne le flag qui est storé dans la DB
 
 - Doc pour les services API à la route /api
-
-## À faire
-
-Il faudrait mieux controller ce que le client peut voir avec son RCE. Par exemple, j'aimerais qu'il puisse seulement voir le fichier login_credentials.txt 
-
-Peut-être que l'exploit pourrait être un peu plus intéressant...
