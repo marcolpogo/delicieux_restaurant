@@ -1,0 +1,128 @@
+#%RAML 1.0
+title: Documentation de l'API 
+mediaType: application/json
+types:
+  ExistingContrevenant:
+    properties:
+      idPoursuite:
+        type: integer
+        example: 1234
+        required: true
+      businessId:
+        type: integer
+        example: 5678
+        required: true
+      date:
+        type: string
+        example: 2020-01-03
+        required: true
+      description:
+        type: string
+        example: L'établissement était malpropre.
+        required: true
+      adresse:
+        type: string
+        example: 123 rue de la pizzeria
+        required: true
+      dateJugement:
+        type: string
+        example: 2020-08-01
+        required: true
+      etablissement:
+        type: string
+        example: LES MAITRES DE LA PIZZERIA
+        required: true
+      montant:
+        type: number
+        example: 666
+        required: true
+      prorietaire:
+        type: string
+        example: John Dough
+        required: true
+      ville:
+        type: string
+        example: Montréal
+        required: true
+      statut:
+        type: string
+        example: Ouvert
+        required: true
+      dateStatut:
+        type: string
+        example: 2022-03-04
+        required: true
+      categorie:
+        type: string
+        example: Restaurant
+        required: true
+
+  UpdatedContrevenant:
+    properties:
+      updatedName:
+        type: string
+        example: LES MAITRES DE LA PIZZERIA
+        required: true
+
+  NbInfractions:
+    properties:
+      etablissement:
+        type: string
+        example: LES MAITRES DE LA PIZZERIA
+        required: true
+      nombre:
+        type: integer
+        example: 12
+        required: true
+
+
+/api/contrevenants:
+  get:
+    description: Nombre d'infractions par établissement, filtré par date.
+    queryParameters: 
+      du:
+        description: Date minimale au format ISO 8601
+        type: string
+        example: 2017-08-23
+        required: false
+      au:
+        description: Date maximale au format ISO 8601
+        type: string
+        example: 2018-01-09
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            type: NbInfractions[]
+      422:
+        description: Mauvais usage des paramètres de query
+
+/api/etablissements:
+  get:
+    description: Toutes les infractions du restaurant demandé
+    queryParameters:
+      etablissement:
+        description: Nom de l'établissement
+        type: string
+        example: Les maitres de la pizzeria
+        required: true
+    responses:
+      200:
+        body:
+          application/json:
+            type: ExistingContrevenant[]
+
+/api/modification: 
+  post:
+    description : Envoie une requête de modification
+    body:
+      application/json:
+        type: UpdatedContrevenant
+    responses:
+      200:
+        description: Message de validation
+
+/api/flag:
+  get:
+    description: Prouvez votre identité pour y accéder...

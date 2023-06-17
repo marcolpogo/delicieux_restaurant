@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" 
+         href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>{{title}}</title>
+    </head>
+    <body>
+        <nav class="container-fluid navbar navbar-expand-lg
+         navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="/">Délicieux restaurants</a>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+                <h1>{{title}}</h1>
+                <div class="title-underline"></div>
+            </div>
+            
+        </header>
+        <div class="container main-content">
+            {% block content %} {% endblock  %}
+        </div>
+        <footer class="container-fluid bg-primary">
+            <div class="container">
+                <p class="text-light">
+                    Bonne dégustation!
+                </p>
+            </div>
+        </footer>
+        <script src="/vendor/jquery/jquery-3.6.3.min.js"></script>
+        <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/js/recherche_rapide.js"></script>
+        <script src="js/modification_etablissement.js"></script>
+    </body>
+</html>

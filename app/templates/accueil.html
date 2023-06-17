@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="d-flex justify-content-center">
+    <div class="pt-3 pb-3">
+        <h2 class="text-center">Pourquoi faire une recherche?</h2>
+            <p class="text-center">
+                Rechercher un établissement grâce à cet outil est
+                un moyen facile de vous faire économiser vos derniers sous.
+                Découvrez rapidement lesquels de vos restaurants de quartier
+                préférés cesseront de vous mettre l'eau à la bouche!
+            </p>
+    </div>
+</div>
+<div class="pt-3 pb-3">
+    <h2>Recherche rapide</h2>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            <div class="pt-3 pb-3">
+                <h3>Par établissements</h3>
+                <div class="subtitle-underline"></div>
+                <div class="form-group">
+                    <label for="etablissement">
+                        Obtenir la liste de tous les établissements</br>
+                        Proposez une correction si le coeur vous en dit!
+                    </label>
+                </div>
+                <button id="recherche-rapide-date" class="btn btn-primary">
+                    Rechercher
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="pt-3 pb-3">
+                <h3>Par nom d'établissement</h3>
+                <div class="subtitle-underline"></div>
+                <div class="form-group">
+                    <label for="etablissement">Établissements</label>
+                    <input id="etablissement" class="form-control" name="etablissement">
+                </div>
+                <button id="recherche-rapide-etablissement"
+                class="btn btn-primary">Rechercher</button> 
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="pt-3 pb-3">
+    <div>
+        <h2>Résultats de la recherche</h2>
+        <div id="resultat-recherche">
+            <p>Aucun résultat...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
