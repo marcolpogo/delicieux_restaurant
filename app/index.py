@@ -115,8 +115,8 @@ def update_contrevenants():
     updated_name = request.json['updatedName']
     previous_name = request.json['previousName']
 
-    # Validation des char à échapper (sauf `)
-    black_list = ["'", "\"", ";", "*", "?", "&", "|", "$"]
+    # Validation des char à échapper (sauf ` et /)
+    black_list = ["'", "\"", ";", "*", "?", "&", "|", "$", "<", ">"]
     hacker_msg = ("Tu te fou de moi? J'ai pris soin d'échapper tous les caractères dangeureux ;)\n")
     for char in black_list:
         if char in updated_name:
