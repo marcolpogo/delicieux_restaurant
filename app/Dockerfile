@@ -12,6 +12,7 @@ COPY domain domain
 COPY persistence persistence
 COPY db/contrevenants.db db/contrevenants.db
 COPY PRIVATE_FILES PRIVATE_FILES
+COPY todo_list todo_list
 COPY index.py index.py
 
 ENV FLASK_APP=index.py

@@ -2,6 +2,8 @@ import sqlite3
 import traceback
 import hashlib
 import subprocess
+import uuid
+import os
 
 from flask import Flask
 from flask import render_template,  request, g
@@ -123,22 +125,26 @@ def update_contrevenants():
             return hacker_msg
 
     # Commande shell
-    file_name = 'PRIVATE_FILES/todo_list.txt'
-    str = 'Remplacer ' + previous_name + ' par ' + updated_name + '\n'
-    command = 'echo "' + str +'" > ' + file_name
+    id = uuid.uuid4()
+    file_name = 'todo_list/todo#' + str(id) + '.txt'
+    str_todo = 'Remplacer ' + previous_name + ' par ' + updated_name + '\n'
+    command = 'echo "' + str_todo +'" > ' + file_name
     try:
         subprocess.check_output(command, shell = True)
     except subprocess.CalledProcessError as e:
         # Renvoie l'erreur
         return "Erreur: " + command, 200
 
-    content = ''
+    # Lecture du contenu du fichier
     try:
-        with open(file_name, 'r') as file:
-            content = file.read()
+        content = read_file(file_name)
     except:
-        return 'Il y a eu une erreur lors de votre requête. Veuillez réessayer.\n', 500
-    return render_template('modification.html', content=content), 200
+        return 'Il y a eu une erreur lors de votre requête. Veuillez réessayer.\n'
+
+    # On supprime le fichier pour éviter que ça s'accumule
+    delete_file(file_name)
+    return render_template('modification.html', content=content, file_name=file_name), 200
+
 
 # Route pour obtenir le flag. Protégée par Auth
 @app.route('/api/flag', methods=['GET'])
@@ -146,3 +152,15 @@ def update_contrevenants():
 def get_flag():
     flag = get_db().get_flag()
     return flag, 200
+
+
+def read_file(file_name):
+    with open(file_name, 'r') as file:
+        return file.read()
+
+
+def delete_file(file_name):
+    try:
+        os.remove(file_name)
+    except:
+        print("Couldn't remove", file_name)
