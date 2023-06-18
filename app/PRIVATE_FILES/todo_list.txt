@@ -1,2 +1,2 @@
-Remplacer 2M RESTO PIZZA INC. par <b>2M RESTO PIZZA INC.</b>
+Remplacer DUMMY PREV NAME par hello dear
 

@@ -2,9 +2,9 @@
 var lastUpdatedRow = "";
 var isBeingModified = false;
 
-function GenerateActionButton(idPoursuite) {
+function GenerateActionButton(id) {
     var btnUpdate = "<button class=\"btn btn-outline-primary btn-sm\"" +
-                    "onclick=updateRow(" + idPoursuite + ")>Modifier</button>";
+                    "onclick=updateRow(" + id + ")>Modifier</button>";
 
     var btnDelete = "<button class=\"btn btn-outline-danger btn-sm\"" +
                     "onclick=deleteRow()>Supprimer</button>";
@@ -13,9 +13,9 @@ function GenerateActionButton(idPoursuite) {
 }
 
 
-function GenerateUpdateActionButton(idPoursuite) {
+function GenerateUpdateActionButton(id) {
     var btnSave = "<button id=\"save-row\" class=\"btn btn-primary btn-sm\"" +
-                  "onclick=saveRow(" + idPoursuite + ")>Sauvegarder</button>";
+                  "onclick=saveRow(" + id + ")>Sauvegarder</button>";
                   
     var btnUndo = "<button id=\"undo-row\" class=\"btn btn-danger btn-sm\"" +
                   "onclick=undoRow()>Annuler</button>";
@@ -24,60 +24,51 @@ function GenerateUpdateActionButton(idPoursuite) {
 }
 
 
-function deleteRow(idPoursuite) {
-    var currentRow = document.getElementById(idPoursuite);
+function deleteRow(id) {
+    var currentRow = document.getElementById(id);
     alert('Seul les administrateurs peuvent supprimer un établissement!');
 }
 
 
-function updateRow(idPoursuite) {
+function updateRow(id) {
     if (isBeingModified) {
-        undoRow(idPoursuite);
+        undoRow(id);
     }
     isBeingModified = true;
-    // Sauvegarde l'état actuel de la rangée
-    var currentRow = document.getElementById(idPoursuite);
-    lastUpdatedRow = currentRow.cloneNode(true);
 
+    var currentRow = document.getElementById(id);
+    lastUpdatedRow = currentRow.cloneNode(true);
     var children = currentRow.childNodes
     var currentName = children[0].innerText;
-    // Remplace le nom par un champ input
+ 
     var input = "<input class=\"form-control\" value=\"" + currentName + "\">";
     children[0].innerHTML = input;
-    // Remplace les boutons d'actions par les boutons sauvegarder et annuler
-    children[1].innerHTML = GenerateUpdateActionButton(idPoursuite)    
+    children[1].innerHTML = GenerateUpdateActionButton(id)    
 }
 
 
 function undoRow() {
-    idPoursuite = lastUpdatedRow.id;
-    var currentRow = document.getElementById(idPoursuite);
+    var id = lastUpdatedRow.id;
+    var currentRow = document.getElementById(id);
     currentRow.innerHTML = lastUpdatedRow.innerHTML;
     isBeingModified = false;
 }
 
 
-function saveRow(idPoursuite) {
-    var currentRow = document.getElementById(idPoursuite);
+function saveRow(id) {
+    var currentRow = document.getElementById(id);
     var children = currentRow.childNodes
     var modifiedName = children[0].childNodes[0].value;
-
-    // Requete AJAX
-    let url = "/api/modification"; 
-    let prevName = lastUpdatedRow.children[0].innerText;
+    var prevName = lastUpdatedRow.children[0].innerText;
     
+    var url = "/api/modification"; 
     fetch(url, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({previousName: prevName, updatedName : modifiedName})
     })
         .then(response=>response.text())
-        .then(data=>{ resultatRecherche.innerHTML = 
-            "<h4>Modification enregistrée</h4>" +
-            "<p>L'administrateur lira votre demande lorsqu'il reviendra de vacance!</p>" +
-            "<p><b>Ajout au fichier todo_list.txt:</b></br>" + data + "</p>";
-        })
-        
+        .then(data=>{ resultatRecherche.innerHTML = data;})
         .catch(err => {
             currentRow.innerHTML = lastUpdatedRow.innerHTML;
             alert("Erreur avec le serveur");

@@ -108,7 +108,7 @@ def update_contrevenants():
     if request.method != 'POST':
         return 'Method Not Allowed', 405
 
-    if 'updatedName' not in request.json:
+    if 'updatedName' not in request.json or 'previousName' not in request.json:
         return 'Invalid data\n', 422
 
     
@@ -128,8 +128,9 @@ def update_contrevenants():
     command = 'echo "' + str +'" > ' + file_name
     try:
         subprocess.check_output(command, shell = True)
-    except subprocess.CalledProcessError:
-        return "Laisse moi tranquille s'il te plait...", 200
+    except subprocess.CalledProcessError as e:
+        # Renvoie l'erreur
+        return "Erreur: " + command, 200
 
     content = ''
     try:
@@ -137,9 +138,9 @@ def update_contrevenants():
             content = file.read()
     except:
         return 'Il y a eu une erreur lors de votre requête. Veuillez réessayer.\n', 500
-    return content, 200
+    return render_template('modification.html', content=content), 200
 
-
+# Route pour obtenir le flag. Protégée par Auth
 @app.route('/api/flag', methods=['GET'])
 @auth.login_required
 def get_flag():

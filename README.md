@@ -13,5 +13,5 @@ Challenge par marco l'pogo
 ## Image Docker
 
 - Utiliser le Dockerfile
-- Il faut avoir builder la DB avec `make database` avant
+- Il faut avoir buildé la DB avec `make database` avant
 - npm n'est pas installé, car on en a pas besoin. On envoie seulement le `doc.html` compilé pour laisser le conteneur léger!

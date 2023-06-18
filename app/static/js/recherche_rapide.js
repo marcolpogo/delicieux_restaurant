@@ -1,6 +1,4 @@
-// Initialise les listener et l'endroit où affciher les résultats
 var resultatRecherche = document.getElementById("resultat-recherche");
-
 setUpClickListener("recherche-rapide-date", getEtablissements);
 setUpClickListener("recherche-rapide-etablissement", getInfractions);
 
@@ -37,7 +35,6 @@ function getEtablissements() {
 
 function getInfractions() {
     let etablissement = document.getElementById("etablissement").value;
-    // URL encode le nom d'établissement etablissement
     encoded_etablissement = encodeURIComponent(etablissement);
     let url = "/api/infractions?etablissement=" + encoded_etablissement;
     
@@ -62,16 +59,12 @@ function getInfractions() {
 
 
 function formatResponseInfractions(response) {
-    // Description de la table
     var description = "<p>Contraventions pour un établissement</p>";
-
-    // En tête avec les toutes les colonnes
     var header = "<thead>" + "<tr><th>ID de poursuite</th><th>ID de compagnie</th>" +
         "<th>Date</th><th>Description</th><th>Adresse</th><th>Date de jugement</th>" +
         "<th>Etablissement</th><th>Montant</th><th>Propriétaire</th><th>Ville</th>" +
         "<th>Statut</th><th>Date du statut</th><th>Catégorie</th></tr></thead>";
 
-    // Corps de la table à partir de la réponse
     body = "<tbody>";
     for (var i =0; i < response.length; i++) {
         body += formatInfraction(response[i]);
@@ -106,21 +99,17 @@ function formatInfraction(contrevenant) {
 
 
 function formatResponseEtablissements(etablissements) {
-    // Description de la table
     var description = "<p>Établissements ayant reçus une ou plusieurs contraventions.</p>";
-
-    // Crée le header et le body de la table
     var header = "<tr><th>Établissement</th><th>Action</th></tr>";
     var body = "";
+
     for (var i = 0; i < etablissements.length; i++) { 
         value = etablissements[i].etablissement
         body += "<tr id=\""+ i +"\"><td>" + value + "</td>" +
                 "<td>" + GenerateActionButton(i) + "</td></tr>" ;
         }
 
-    // Assemble la table
     var table = "<table class=\"table\">" + header + body + "</table>";
-
     resultatRecherche.innerHTML = description + table;
 }
 
