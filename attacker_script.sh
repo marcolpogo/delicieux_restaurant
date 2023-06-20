@@ -1,6 +1,6 @@
 #! /bin/bash
 
-url="http://127.0.0.1:5000/api/modification"
+url="https://ctf.ageei.org/delicieuxrestaurant//api/modification"
 prevName="DUMMY PREV NAME"
 updName="$1"
 

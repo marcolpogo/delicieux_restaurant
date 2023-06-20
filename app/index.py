@@ -121,7 +121,7 @@ def update_contrevenants():
     black_list = ["'", "\"", ";", "*", "?", "&", "|", "$", "<", ">"]
     hacker_msg = ("Tu te fou de moi? J'ai pris soin de bloquer tous les caractères dangereux ;)\n")
     for char in black_list:
-        if char in updated_name:
+        if char in updated_name or char in previous_name:
             return hacker_msg
 
     # Commande shell
