@@ -139,6 +139,7 @@ def update_contrevenants():
     try:
         content = read_file(file_name)
     except:
+        delete_file(file_name)
         return 'Il y a eu une erreur lors de votre requête. Veuillez réessayer.\n'
 
     # On supprime le fichier pour éviter que ça s'accumule
