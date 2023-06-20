@@ -143,7 +143,7 @@ def update_contrevenants():
 
     # On supprime le fichier pour éviter que ça s'accumule
     delete_file(file_name)
-    return render_template('modification.html', content=content, file_name=file_name), 200
+    return render_template('modification.html', content=content), 200
 
 
 # Route pour obtenir le flag. Protégée par Auth
