@@ -35,5 +35,5 @@ create table flag(
 );
 
 insert into flag(msg) values(
-    'UQAM{BL4CKL1ST_4R3_B4D...Y0U_W1LL_F0RG3T_S0M3}'
+    '{BL4CKL1ST_4R3_B4D...Y0U_W1LL_F0RG3T_S0M3}'
 );
