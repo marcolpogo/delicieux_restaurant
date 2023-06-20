@@ -119,7 +119,7 @@ def update_contrevenants():
 
     # Validation des char à échapper (sauf ` et /)
     black_list = ["'", "\"", ";", "*", "?", "&", "|", "$", "<", ">"]
-    hacker_msg = ("Tu te fou de moi? J'ai pris soin d'échapper tous les caractères dangeureux ;)\n")
+    hacker_msg = ("Tu te fou de moi? J'ai pris soin de bloquer tous les caractères dangereux ;)\n")
     for char in black_list:
         if char in updated_name:
             return hacker_msg
